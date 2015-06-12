@@ -6,58 +6,25 @@ Backbone.$ = $;
 
 var Well = require('react-bootstrap').Well;
 
+var FightBoard = require('./FightBoard');
 
-var InterfaceComponent = React.createClass({
-    getInitialState: function() {
-    },
-    componentWillMount : function() {
-    },
+var Main = React.createClass({
     render: function() {
-        var nav = 0;
-        var content;
-        if (this.props.router.current[0] == 'fight') {
-            nav = 1;
-            content = (
-                <Well>
-                </Well>
-            );
-        }
-        if (this.props.router.current[0] == 'about') {
-            nav = 2;
-            content = (
-                <Well>
-                </Well>
-            );
-        }
         return (
-            <div className="content">
-                <MainNav current={nav} />
+            <div>
                 <Well>
-                    {content}
+                    <h1>The Fight Goes Here!</h1>
+                </Well>
+                <Well>
+                    <FightBoard />
                 </Well>
             </div>
         );
     }
 });
 
-var Router = Backbone.Router.extend({
-    current: ['home'],
-    routes: {
-        '*actions': function(actions) {
-            if (actions) {
-                this.current = actions.split('/');
-            } else {
-                this.current = ["fight"];
-            }
-        }
-    },
-});
-
-var router = new Router();
-
 React.renderComponent(
-    <InterfaceComponent router={router} />,
+    <Main />,
     document.body
 );
 
-Backbone.history.start();
